@@ -1,5 +1,7 @@
 .husky
 .prettierignore
+.gitignore
+yarn.lock
 
 # Logs
 logs
@@ -29,3 +31,8 @@ dist-ssr
 # Images
 *.png
 *.jpg
+
+#Hardhat files
+cache
+artifacts
+*.sol
