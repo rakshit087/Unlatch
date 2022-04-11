@@ -1,5 +1,6 @@
 import { AppBar, Box, Button, IconButton, Link, Toolbar, Typography } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import { Web3Service } from "../utilities/web3";
 
 export const Navbar = () => {
   return (
@@ -32,7 +33,13 @@ export const Navbar = () => {
               Add Your Course
             </Link>
           </Box>
-          <Button variant="contained" sx={{ backgroundColor: "primary.main", color: "white" }}>
+          <Button
+            variant="contained"
+            sx={{ backgroundColor: "primary.main", color: "white" }}
+            onClick={() => {
+              Web3Service.connect();
+            }}
+          >
             Connect
           </Button>
         </Box>
