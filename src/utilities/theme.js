@@ -3,7 +3,7 @@ import { createTheme, responsiveFontSizes } from "@mui/material/styles";
 const palette = {
   type: "light",
   primary: { main: "#45B3F2" },
-  secondary: { main: "#7F54B3" },
+  secondary: { main: "#392C5D" },
   text: { primary: "#645D5D", secondary: "#B1B1B1", disabled: "#B1B1B1" },
 };
 
