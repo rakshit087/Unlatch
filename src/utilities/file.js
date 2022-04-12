@@ -1,38 +1,40 @@
-import { create, globSource } from "ipfs-http-client";
-import { ethers } from "ethers";
-import axios from "axios";
-const ipfsPinningService = "https://pin.crustcode.com/psa";
+import { create } from "ipfs-http-client";
+import { Keyring } from "@polkadot/api";
+import { waitReady } from "@polkadot/wasm-crypto";
+//import axios from "axios";
+
+const ipfsGateway = "https://crustwebsites.net";
+//const ipfsPinningService = "https://pin.crustcode.com/psa";
 
 export const FileServices = {
-  addFile: async (fileContent) => {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
-    const publicAddress = await signer.getAddress();
-    const privateKey = await signer.signMessage(publicAddress);
-    const authHeaderRaw = `eth-${publicAddress}:${privateKey}`;
-    const authHeader = Buffer.from(authHeaderRaw).toString("base64");
-    const ipfsW3GW = "https://crustipfs.xyz";
-
-    // 1. Create IPFS instant
-    const ipfs = create({
-      url: `${ipfsW3GW}/api/v0`,
+  addFile: async (fileContent, seed) => {
+    await waitReady();
+    const keyring = new Keyring({ type: "sr25519" });
+    const pair = keyring.addFromUri(seed);
+    const sig = pair.sign(pair.address);
+    const sigHex = "0x" + Buffer.from(sig).toString("hex");
+    const authHeader = Buffer.from(`sub-${pair.address}:${sigHex}`).toString("base64");
+    const ipfs = await create({
+      url: ipfsGateway + "/api/v0",
       headers: {
-        authorization: `Basic ${authHeader}`,
+        authorization: "Basic " + authHeader,
       },
     });
     const { cid } = await ipfs.add(fileContent);
-    return cid;
-    // console.log(cid);
-    // const res = await axios.post(`${ipfsPinningService}/pins`, {
+    return cid.toV0().toString();
+    //if (cid) {
+    //console.log(cid.toV0().toString());
+    // const { body } = await axios.post(ipfsPinningService + "/pins", {
     //   headers: {
-    //     'Authorization': `Basic ${authHeader}`,
+    //     authorization: "Bearer " + authHeader,
     //   },
     //   json: {
-    //     cid: cid.toV0().toString(),
-    //     name: "test",
-    //   }
-    // })
-    // console.log(res);
-    // return res.pin.cid;
+    //     cid: "QmdTsUnXZzM1szvnEkYSKjkVL2xZ5GqmKJ6BPwE6ZKcvxv",
+    //   },
+    // });
+    // console.log(body);
+    //} else {
+    //  throw new Error("IPFS add failed, please try again.");
+    //}
   },
 };
