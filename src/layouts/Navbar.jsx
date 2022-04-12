@@ -1,7 +1,6 @@
 import { AppBar, Box, Button, IconButton, Link, Toolbar, Typography } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { WalletServices } from "../utilities/wallet";
-
+import UserAvatar from "../components/UserAvatar";
 export const Navbar = () => {
   return (
     <AppBar position="sticky" sx={{ backgroundColor: "white", px: { xs: 1, md: 10, lg: 20 }, pt: 3 }}>
@@ -33,15 +32,7 @@ export const Navbar = () => {
               Add Your Course
             </Link>
           </Box>
-          <Button
-            variant="contained"
-            sx={{ backgroundColor: "primary.main", color: "white" }}
-            onClick={() => {
-              WalletServices.connect();
-            }}
-          >
-            Connect
-          </Button>
+          <UserAvatar />
         </Box>
       </Toolbar>
     </AppBar>
