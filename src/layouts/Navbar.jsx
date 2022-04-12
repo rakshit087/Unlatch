@@ -28,7 +28,7 @@ export const Navbar = () => {
             <Link href="/" sx={{ textDecoration: "none", mr: 4 }} variant="body2" color={"textPrimary"}>
               How it Works
             </Link>
-            <Link href="/" sx={{ textDecoration: "none", mr: 4 }} variant="body2" color={"textPrimary"}>
+            <Link href="/makecourse" sx={{ textDecoration: "none", mr: 4 }} variant="body2" color={"textPrimary"}>
               Add Your Course
             </Link>
           </Box>
