@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 
-export const Web3Service = {
+export const WalletServices = {
   connect: async () => {
     await window.ethereum.request({ method: "eth_requestAccounts" });
   },

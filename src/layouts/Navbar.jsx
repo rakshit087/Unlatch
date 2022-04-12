@@ -1,6 +1,6 @@
 import { AppBar, Box, Button, IconButton, Link, Toolbar, Typography } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Web3Service } from "../utilities/web3";
+import { WalletServices } from "../utilities/wallet";
 
 export const Navbar = () => {
   return (
@@ -37,7 +37,7 @@ export const Navbar = () => {
             variant="contained"
             sx={{ backgroundColor: "primary.main", color: "white" }}
             onClick={() => {
-              Web3Service.connect();
+              WalletServices.connect();
             }}
           >
             Connect
