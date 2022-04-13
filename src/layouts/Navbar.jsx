@@ -26,10 +26,13 @@ export const Navbar = () => {
         <Box sx={{ display: { xs: "none", sm: "flex" }, alignItems: "center" }}>
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <Link href="/" sx={{ textDecoration: "none", mr: 4 }} variant="body2" color={"textPrimary"}>
-              How it Works
+              Courses
             </Link>
             <Link href="/makecourse" sx={{ textDecoration: "none", mr: 4 }} variant="body2" color={"textPrimary"}>
               Add Your Course
+            </Link>
+            <Link href="/" sx={{ textDecoration: "none", mr: 4 }} variant="body2" color={"textPrimary"}>
+              How it Works
             </Link>
           </Box>
           <UserAvatar />
