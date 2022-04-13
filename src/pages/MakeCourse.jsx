@@ -1,40 +1,34 @@
-import { Box, Typography } from "@mui/material";
+import { Box, TextareaAutosize, Typography } from "@mui/material";
 import { Navbar } from "../layouts/Navbar";
 import { useEffect, useState } from "react";
 import { FileServices } from "../utilities/file";
+import { UploadFile } from "../components/UploadFile";
 
 const MakeCourse = () => {
-  const [buffer, setBuffer] = useState(null);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   return (
     <div>
       <Navbar />
-      <Box sx={{ px: { xs: 1, md: 10, lg: 22 }, py: 10 }}>
-        <input placeholder="Title of your course" style={{ outline: "none", border: "none", fontSize: 32 }} />
+      <Box sx={{ px: { xs: 1, md: 10, lg: 22 }, py: 10, display: "flex", flexDirection: "column" }}>
+        <input
+          placeholder="Title of your course"
+          style={{ outline: "none", border: "none", fontSize: 32, marginBottom: "3rem" }}
+          onChange={(e) => {
+            setTitle(e.target.value);
+          }}
+        />
+        <TextareaAutosize
+          placeholder="Description of your course"
+          style={{ outline: "none", border: "none", fontSize: 24, minHeight: "16rem", resize: "none" }}
+          onChange={(e) => {
+            setDescription(e.target.value);
+          }}
+        />
+        <Box sx={{ width: "100%", display: "flex", justifyContent: "center" }}>
+          <UploadFile title={title} description={description} />
+        </Box>
       </Box>
-      <input
-        type="file"
-        id="myfile"
-        name="myfile"
-        accept=".mp4"
-        onChange={(event) => {
-          event.preventDefault();
-          const file = event.target.files[0];
-          const reader = new window.FileReader();
-          reader.readAsArrayBuffer(file);
-          reader.onloadend = () => {
-            setBuffer(reader.result);
-          };
-        }}
-      ></input>
-      <button
-        type="button"
-        onClick={() => {
-          console.log(buffer);
-          FileServices.addFile(buffer);
-        }}
-      >
-        Upload
-      </button>
     </div>
   );
 };
