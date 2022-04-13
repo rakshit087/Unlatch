@@ -1,11 +1,25 @@
 import { Box, TextareaAutosize, Typography } from "@mui/material";
 import { Navbar } from "../layouts/Navbar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { UploadFile } from "../components/UploadFile";
+import { WalletServices } from "../utilities/wallet";
 
 const MakeCourse = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  useEffect(() => {
+    if (!window.ethereum) {
+      alert("Please install MetaMask");
+    } else {
+      WalletServices.isConnected().then((con) => {
+        if (!con) {
+          router.push({
+            pathname: "/",
+          });
+        }
+      });
+    }
+  }, []);
   return (
     <div>
       <Navbar />
