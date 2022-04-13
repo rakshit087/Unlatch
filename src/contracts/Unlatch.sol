@@ -63,6 +63,22 @@ contract Unlatch {
         return courses[_id];
     }
 
+    function getVideos(uint256 _id) 
+    public 
+    view 
+    returns (Video[] memory) 
+    { 
+        require(msg.sender != address(0x0));
+        require(_id > 0);
+        require(_id <= courseCount);
+        uint256 length = courses[_id].videoIDs.length;
+        Video[] memory returnVideos = new Video[](length);
+        for(uint256 i = 0; i < length; i++) {
+            returnVideos[i] = videos[courses[_id].videoIDs[i]];
+        }
+        return returnVideos;
+    }
+
     //Retrieve 10 latest courses
     function getLatestCourses() public view returns (Course[] memory) {
         require(msg.sender != address(0x0));
