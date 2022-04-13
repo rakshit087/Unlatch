@@ -25,7 +25,7 @@ export const Navbar = () => {
         {/* Login, Signup and Links */}
         <Box sx={{ display: { xs: "none", sm: "flex" }, alignItems: "center" }}>
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <Link href="/" sx={{ textDecoration: "none", mr: 4 }} variant="body2" color={"textPrimary"}>
+            <Link href="/courses" sx={{ textDecoration: "none", mr: 4 }} variant="body2" color={"textPrimary"}>
               Courses
             </Link>
             <Link href="/makecourse" sx={{ textDecoration: "none", mr: 4 }} variant="body2" color={"textPrimary"}>
