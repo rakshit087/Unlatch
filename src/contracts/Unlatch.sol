@@ -39,20 +39,21 @@ contract Unlatch {
         require(bytes(_title).length > 0);
         require(bytes(_description).length > 0);
         require(_videos.length > 0);
+        courseCount++;
         courses[courseCount].id = courseCount;
         courses[courseCount].title = _title;
         courses[courseCount].description = _description;
         for(uint256 i = 0; i < _videos.length; i++) {
             require(bytes(_videos[i].name).length > 0);
             require(bytes(_videos[i].cid).length > 0);
+            videoCount++;
             videos[videoCount].id = videoCount;
             videos[videoCount].name = _videos[i].name;
             videos[videoCount].cid = _videos[i].cid;
             videos[videoCount].author = payable(msg.sender);
             courses[courseCount].videoIDs.push(videoCount);
-            videoCount++;
+            
         }
-        courseCount++;
     }
 
     //Retrieve a course
