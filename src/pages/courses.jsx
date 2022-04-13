@@ -20,11 +20,12 @@ const Courses = () => {
           ContractService.getCourses().then((courses) => {
             //filter courses with empty title
             setCourses(courses.filter((course) => course.title !== ""));
+            console.log(courses);
           });
         }
       });
     }
-  });
+  }, []);
   return (
     <div>
       <Navbar />
@@ -52,7 +53,7 @@ const Courses = () => {
                   router.push({
                     pathname: "/course",
                     query: {
-                      id: course.id,
+                      id: course.id.toString(),
                     },
                   });
                 }}
