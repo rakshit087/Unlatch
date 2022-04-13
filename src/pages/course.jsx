@@ -5,7 +5,7 @@ import { WalletServices } from "../utilities/wallet";
 import { Navbar } from "../layouts/Navbar";
 import { Box, Card, Typography, Grid, CardContent } from "@mui/material";
 import ReactPlayer from "react-player";
-
+import { FluidService } from "../utilities/fluid";
 const Course = () => {
   const router = useRouter();
   const [videos, setVideos] = useState([]);
@@ -53,6 +53,9 @@ const Course = () => {
                 height="auto"
                 style={{ display: "flex" }}
                 url={"https://crustwebsites.net/ipfs/" + currentlyPlaying.cid}
+                onStart={() => {
+                  FluidService.createStream(currentlyPlaying.author);
+                }}
                 controls
               />
               <Typography variant="h5" marginY={2} noWrap>

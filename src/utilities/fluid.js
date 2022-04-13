@@ -2,7 +2,7 @@ import { Framework } from "@superfluid-finance/sdk-core";
 import { ethers } from "ethers";
 
 export const FluidService = {
-  createStream: (recipent) => {
+  createStream: async (recipent) => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const chainId = await window.ethereum.request({ method: "eth_chainId" });
