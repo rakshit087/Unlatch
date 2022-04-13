@@ -17,6 +17,6 @@ export const ContractService = {
     const signer = provider.getSigner();
     const contract = new ethers.Contract(contractAddress, UnlatchArtifact.abi, signer);
     const courses = await contract.getLatestCourses();
-    console.log(courses);
+    return courses;
   },
 };

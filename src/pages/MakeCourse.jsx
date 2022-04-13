@@ -1,7 +1,6 @@
 import { Box, TextareaAutosize, Typography } from "@mui/material";
 import { Navbar } from "../layouts/Navbar";
-import { useEffect, useState } from "react";
-import { FileServices } from "../utilities/file";
+import { useState } from "react";
 import { UploadFile } from "../components/UploadFile";
 
 const MakeCourse = () => {
