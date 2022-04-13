@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Badge, Button, ButtonGroup, CircularProgress } from "@mui/material";
 import { FileServices } from "../utilities/file";
+import { ContractService } from "../utilities/contract";
 import SendIcon from "@mui/icons-material/Send";
 import MiniAlert from "./MiniAlert";
 
@@ -19,6 +20,8 @@ export const UploadFile = (props) => {
       setUploading(false);
       setRawFiles([]);
       setAlert({ open: true, message: "Uploaded successfully", severity: "success" });
+      setAlert({ open: true, message: "Making your course", severity: "info" });
+      ContractService.postCourse(props.title, props.description, files);
     }
   }, [files]);
 
@@ -71,7 +74,7 @@ export const UploadFile = (props) => {
                 reader.onload = async (event) => {
                   const fileBuffer = event.target.result;
                   const cid = await FileServices.addFile(fileBuffer);
-                  setFiles([...files, { fileName: file.name, cid: cid }]);
+                  setFiles([...files, { name: file.name, cid: cid }]);
                   console.log(file.name, cid);
                 };
               });
