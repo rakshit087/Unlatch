@@ -1,10 +1,14 @@
-import { Alert, Snakbar } from "@mui/material";
-
+import { Alert, Snackbar } from "@mui/material";
 const MiniAlert = (props) => {
   const { message, severity } = props;
-  const [open, setOpen] = useState(true);
   return (
-    <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+    <Snackbar
+      open={props.open}
+      autoHideDuration={2000}
+      onClose={() => {
+        props.setAlert({ open: false, message: "", severity: "error" });
+      }}
+    >
       <Alert severity={severity}>{message}</Alert>
     </Snackbar>
   );

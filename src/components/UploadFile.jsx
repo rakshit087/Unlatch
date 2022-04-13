@@ -2,22 +2,29 @@ import { useEffect, useState } from "react";
 import { Badge, Button, ButtonGroup, CircularProgress } from "@mui/material";
 import { FileServices } from "../utilities/file";
 import SendIcon from "@mui/icons-material/Send";
+import MiniAlert from "./MiniAlert";
 
 export const UploadFile = (props) => {
   const [rawFiles, setRawFiles] = useState([]);
   const [files, setFiles] = useState([]);
   const [uploading, setUploading] = useState(false);
+  const [alert, setAlert] = useState({
+    open: false,
+    message: "",
+    severity: "error",
+  });
 
   useEffect(() => {
     if (files.length == rawFiles.length && files.length > 0) {
       setUploading(false);
       setRawFiles([]);
-      console.log(files);
+      setAlert({ open: true, message: "Uploaded successfully", severity: "success" });
     }
   }, [files]);
 
   return (
     <div style={{ textAlign: "center" }}>
+      <MiniAlert message={alert.message} severity={alert.severity} open={alert.open} setAlert={setAlert} />
       <input
         type="file"
         id="myfile"
@@ -38,17 +45,37 @@ export const UploadFile = (props) => {
         <Button
           size="large"
           onClick={() => {
-            setUploading(true);
-            rawFiles.forEach((file) => {
-              const reader = new FileReader();
-              reader.readAsArrayBuffer(file);
-              reader.onload = async (event) => {
-                const fileBuffer = event.target.result;
-                const cid = await FileServices.addFile(fileBuffer);
-                setFiles([...files, { fileName: file.name, cid: cid }]);
-                console.log(file.name, cid);
-              };
-            });
+            if (props.title == "") {
+              setAlert({
+                open: true,
+                message: "Please enter a title",
+                severity: "error",
+              });
+            } else if (props.description == "") {
+              setAlert({
+                open: true,
+                message: "Please enter a description",
+                severity: "error",
+              });
+            } else if (rawFiles.length == 0) {
+              setAlert({
+                open: true,
+                message: "Please add a video",
+                severity: "error",
+              });
+            } else {
+              setUploading(true);
+              rawFiles.forEach((file) => {
+                const reader = new FileReader();
+                reader.readAsArrayBuffer(file);
+                reader.onload = async (event) => {
+                  const fileBuffer = event.target.result;
+                  const cid = await FileServices.addFile(fileBuffer);
+                  setFiles([...files, { fileName: file.name, cid: cid }]);
+                  console.log(file.name, cid);
+                };
+              });
+            }
           }}
         >
           <Badge badgeContent={uploading ? files.length : rawFiles.length} color="secondary">

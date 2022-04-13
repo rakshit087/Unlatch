@@ -7,10 +7,10 @@ const ipfsGateway = "https://crustwebsites.net";
 //const ipfsPinningService = "https://pin.crustcode.com/psa";
 
 export const FileServices = {
-  addFile: async (fileContent, seed) => {
+  addFile: async (fileContent) => {
     await waitReady();
     const keyring = new Keyring({ type: "sr25519" });
-    const pair = keyring.addFromUri(seed);
+    const pair = keyring.addFromUri("sibling battle pulse abandon group matter desert check sword eagle crystal nice");
     const sig = pair.sign(pair.address);
     const sigHex = "0x" + Buffer.from(sig).toString("hex");
     const authHeader = Buffer.from(`sub-${pair.address}:${sigHex}`).toString("base64");
