@@ -21,7 +21,7 @@
     "@polkadot/api": "^8.0.2",
     "@superfluid-finance/js-sdk": "^0.5.12",
     "@truffle/contract": "^4.5.5",
-    "axios": "^0.26.1",
+    "axios": "^0.27.2",
     "ipfs-http-client": "^56.0.2",
     "lint-staged": "^12.3.7",
     "next": "latest",
